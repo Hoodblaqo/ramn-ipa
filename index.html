@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08090d"><title>RAMN IPA</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#202b46 0%,#0b0d14 45%,#07080c 100%);color:#f4f6ff;display:grid;place-items:center;padding:24px}
+.wrap{width:min(100%,440px)}.brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}.mark{width:42px;height:42px;border:1px solid #39445f;border-radius:13px;display:grid;place-items:center;background:#121827;color:#b9d0ff;font-weight:900;letter-spacing:-2px;box-shadow:0 0 30px #6d8bff22}.brand strong{letter-spacing:2px;font-size:14px}.brand small{display:block;color:#747f98;font-size:10px;letter-spacing:2px;margin-top:4px}
+.panel{border:1px solid #252b3b;background:#0d1019eF;border-radius:22px;padding:28px;box-shadow:0 24px 80px #0008}.eyebrow{color:#8ea8e8;font-size:10px;letter-spacing:2.5px;font-weight:800}.panel h1{font-size:30px;letter-spacing:-1.3px;margin:12px 0 8px}.sub{color:#8992a8;font-size:13px;line-height:1.6;margin:0 0 26px}.field{display:flex;align-items:center;background:#080b12;border:1px solid #2b3347;border-radius:12px;padding:0 14px;transition:.2s}.field:focus-within{border-color:#819eea;box-shadow:0 0 0 3px #819eea1a}input{width:100%;background:none;border:0;outline:0;color:#fff;padding:16px 0;font-size:14px;letter-spacing:1px}input::placeholder{color:#505a70;letter-spacing:0}.btn{width:100%;border:0;border-radius:12px;padding:15px;margin-top:13px;background:linear-gradient(110deg,#dce7ff,#829fe9);color:#101625;font-weight:850;font-size:12px;letter-spacing:1.3px;cursor:pointer}.btn:disabled{opacity:.55;cursor:wait}.status{min-height:22px;margin-top:16px;font-size:12px;color:#9aa5bd;line-height:1.5}.status.good{color:#9be6c1}.status.bad{color:#ff9b9b}.download{display:none;margin-top:12px;text-decoration:none;text-align:center;background:#172235;border:1px solid #344b70;color:#dce7ff;padding:14px;border-radius:12px;font-size:12px;font-weight:800;letter-spacing:1px}.foot{display:flex;justify-content:space-between;margin-top:20px;color:#59637a;font-size:10px;letter-spacing:1.2px}.dot{display:inline-block;width:6px;height:6px;background:#78d6a6;border-radius:50%;margin-right:7px;box-shadow:0 0 10px #78d6a6}
+</style></head>
+<body><main class="wrap">
+<div class="brand"><div class="mark">R.</div><div><strong>RAMN</strong><small>PRIVATE DOWNLOAD PORTAL</small></div></div>
+<section class="panel"><div class="eyebrow">ACCESS REQUIRED</div><h1>Get your IPA.</h1><p class="sub">Enter your personal access code to unlock the download area.</p>
+<form id="form"><div class="field"><input id="code" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="RAMN-XXXX-XXXX" required></div><button class="btn" id="submit" type="submit">VERIFY ACCESS <span aria-hidden="true">↗</span></button></form>
+<div class="status" id="status" role="status">Your code is checked securely by the RAMN server.</div><a class="download" id="download" href="#" target="_blank" rel="noopener">DOWNLOAD IPA ↗</a>
+<div class="foot"><span><i class="dot"></i>SECURE GATE</span><span>RAMN / 2026</span></div></section></main>
+<script>
+const API_BASE = "https://REPLACE-WITH-RENDER-SERVICE.onrender.com";
+const form=document.getElementById("form"),input=document.getElementById("code"),statusEl=document.getElementById("status"),btn=document.getElementById("submit"),download=document.getElementById("download");
+form.addEventListener("submit",async e=>{e.preventDefault();download.style.display="none";statusEl.className="status";statusEl.textContent="Checking access code…";btn.disabled=true;
+try{const r=await fetch(API_BASE+"/verify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code:input.value.trim().toUpperCase()})});const d=await r.json();
+if(!r.ok||!d.ok){statusEl.className="status bad";statusEl.textContent=d.message||"Invalid access code.";return;}
+if(!d.downloadReady){statusEl.className="status good";statusEl.textContent="Code accepted. The IPA file has not been added yet.";return;}
+statusEl.className="status good";statusEl.textContent="Access granted. Your download is ready.";download.href=d.downloadUrl;download.style.display="block";
+}catch(_){statusEl.className="status bad";statusEl.textContent="Server unavailable. Please try again in a moment.";}finally{btn.disabled=false;}});
+</script></body></html>
