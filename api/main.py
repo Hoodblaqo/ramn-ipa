@@ -7,6 +7,8 @@ CORS(app, resources={r"/*": {"origins": ["https://hoodblaqo.github.io"]}})
 
 def valid_codes():
     codes = {item.strip().upper() for item in os.getenv("ACCESS_CODES", "").split(",") if item.strip()}
+    extra_codes = {item.strip().upper() for item in os.getenv("EXTRA_CODES", "").split(",") if item.strip()}
+    codes.update(extra_codes)
     test_code = os.getenv("TEST_CODE", "").strip().upper()
     if test_code:
         codes.add(test_code)
