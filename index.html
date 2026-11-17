@@ -2,65 +2,104 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090711">
-<title>RAMNTIFY — Private IPA Access</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09090d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RAMNTIFY">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>RAMNTIFY</title>
 <style>
-:root{color-scheme:dark;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 0%,#33205c 0%,#151021 38%,#08070d 78%);color:#f7f3ff}
-.wrap{width:min(100%,440px)}
-.brand{display:flex;align-items:center;gap:13px;margin:0 0 28px}
-.mark{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#c6a2ff,#8051d9);color:#160c27;font-size:20px;font-weight:950;box-shadow:0 8px 34px #9a69ff44}
-.brand strong{display:block;font-size:15px;letter-spacing:3px}
-.brand small{display:block;margin-top:4px;color:#9f92b8;font-size:9px;letter-spacing:2.2px}
-.panel{padding:30px;border:1px solid #ffffff19;border-radius:24px;background:linear-gradient(155deg,#171222ee,#0e0b16f2);box-shadow:0 24px 90px #0009}
-.eyebrow{font-size:10px;letter-spacing:3px;color:#b99aff;font-weight:800}
-h1{font-size:32px;letter-spacing:-1.3px;margin:13px 0 9px}
-.sub{color:#a99fb9;font-size:13px;line-height:1.7;margin:0 0 26px}
-.field{display:flex;align-items:center;border:1px solid #3c3150;background:#0b0911;border-radius:12px;padding:0 15px;transition:.2s}
-.field:focus-within{border-color:#a77aff;box-shadow:0 0 0 3px #a77aff22}
-input{width:100%;background:none;border:0;outline:0;color:#fff;padding:16px 0;font-size:14px;letter-spacing:1px}
-input::placeholder{color:#625873}
-button,.download{width:100%;display:block;border:0;border-radius:12px;padding:16px;margin-top:13px;background:linear-gradient(110deg,#d3b6ff,#9a6aee);color:#1a1028;font-size:11px;font-weight:900;letter-spacing:1.8px;text-align:center;text-decoration:none;cursor:pointer}
-button:disabled{opacity:.6;cursor:wait}
-.status{min-height:22px;margin-top:17px;font-size:12px;line-height:1.5;color:#9d91ad}
-.status.good{color:#a8edc7}.status.bad{color:#ff9caa}
-.download{display:none;background:#211735;border:1px solid #65499a;color:#e4d5ff}
-.foot{display:flex;justify-content:space-between;margin-top:24px;color:#655b73;font-size:9px;letter-spacing:1.4px}
-.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#a77aff;margin-right:7px;box-shadow:0 0 10px #a77aff}
+:root{color-scheme:dark;--bg:#09090d;--panel:#14141c;--panel2:#1c1b26;--muted:#9996a8;--text:#f7f5fb;--purple:#b28cff;--line:#ffffff12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer}.shell{max-width:1100px;margin:auto;min-height:100vh;padding:env(safe-area-inset-top) 18px calc(92px + env(safe-area-inset-bottom))}
+.top{height:68px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:10px;font-weight:950;letter-spacing:3px;font-size:15px}.logo{width:34px;height:34px;border-radius:11px;background:linear-gradient(140deg,#d7c3ff,#8153c9);display:grid;place-items:center;color:#170d27;font-size:19px;box-shadow:0 6px 24px #9d73f655}.pill{font-size:10px;color:#c7b1f3;border:1px solid #b28cff44;padding:7px 10px;border-radius:30px;letter-spacing:1.2px}
+main{padding:25px 0}.page{display:none}.page.active{display:block}.welcome{padding:27px 0 24px}.eyebrow{color:var(--purple);font-size:10px;letter-spacing:2.5px;font-weight:800}.welcome h1{font-size:clamp(30px,6vw,48px);letter-spacing:-2px;line-height:1.03;margin:12px 0 9px}.welcome p,.muted{color:var(--muted);font-size:13px;line-height:1.6}.section-head{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px}.section-head h2{font-size:17px;margin:0;letter-spacing:-.3px}.section-head span{font-size:11px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tile{min-height:132px;border:1px solid var(--line);border-radius:17px;padding:15px;background:linear-gradient(145deg,#211a30,#13121a);text-align:left;color:var(--text);position:relative;overflow:hidden}.tile:after{content:"";position:absolute;width:110px;height:110px;border-radius:50%;background:#b28cff13;right:-34px;bottom:-40px}.tile .glyph{font-size:22px;margin-bottom:20px}.tile strong{display:block;font-size:13px}.tile small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.searchbox{display:flex;gap:9px;margin:20px 0}.searchbox input,.urlbox input{min-width:0;flex:1;background:#15141d;border:1px solid #ffffff1c;border-radius:13px;padding:14px;color:white;outline:none}.searchbox input:focus,.urlbox input:focus{border-color:var(--purple)}.action{border:0;border-radius:13px;padding:0 17px;background:var(--purple);color:#160e21;font-weight:900;font-size:11px;letter-spacing:1px}
+.embed-wrap{margin-top:18px;border-radius:16px;overflow:hidden;background:#14131b;border:1px solid var(--line);min-height:110px}.embed-wrap iframe{display:block;width:100%;border:0}.empty{padding:24px;text-align:center;color:var(--muted);font-size:12px;line-height:1.7}
+.urlbox{display:flex;gap:8px;margin-top:18px}.urlbox .action{white-space:nowrap}.notice{font-size:11px;color:var(--muted);line-height:1.6;margin-top:10px}
+.list{display:grid;gap:10px}.rowitem{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);background:var(--panel);border-radius:14px}.cover{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,#8c5ad4,#21172f);display:grid;place-items:center;font-size:18px}.rowitem strong{display:block;font-size:12px}.rowitem small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.rowitem button{margin-left:auto;background:#292237;border:1px solid #b28cff33;color:#d8c7f7;padding:9px 11px;border-radius:10px;font-size:10px}
+.settings-card{padding:17px;border:1px solid var(--line);border-radius:16px;background:var(--panel);margin-top:12px}.settings-card strong{font-size:13px}.settings-card p{font-size:11px;color:var(--muted);line-height:1.6}.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#0c0b11ed;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:center}.navinner{width:min(100%,600px);display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.nav button{border:0;background:transparent;color:#817c90;padding:8px 4px;border-radius:12px;font-size:9px;letter-spacing:.5px}.nav button span{display:block;font-size:18px;margin-bottom:4px}.nav button.active{color:#d4c0ff;background:#b28cff12}
+#gate{position:fixed;inset:0;z-index:20;background:radial-gradient(ellipse at 50% 0%,#33234a 0%,#121019 45%,#09090d 85%);display:grid;place-items:center;padding:22px}#gate.hidden{display:none}.gatebox{width:min(100%,410px);padding:28px;border:1px solid #ffffff1a;border-radius:23px;background:#12111aee;box-shadow:0 30px 100px #0009}.gatebox h1{font-size:29px;letter-spacing:-1px;margin:13px 0 7px}.gatebox p{color:var(--muted);font-size:12px;line-height:1.7}.gatebox input{width:100%;padding:15px;background:#09090e;border:1px solid #ffffff22;border-radius:12px;color:white;outline:none;margin-top:12px}.gatebox button{width:100%;padding:15px;border:0;border-radius:12px;background:var(--purple);font-weight:900;letter-spacing:1px;margin-top:10px;color:#180e24}.gate-status{min-height:20px;font-size:11px;color:var(--muted);margin-top:12px}.gate-status.bad{color:#ff9daa}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.shell{padding-left:30px;padding-right:30px}.welcome{padding:44px 0 34px}.nav{top:68px;bottom:auto;left:auto;right:max(calc((100vw - 1100px)/2 + 30px),30px);width:auto;background:transparent;border:0;padding:0}.navinner{width:auto;display:flex}.nav button{padding:9px 13px}.shell{padding-bottom:40px}}
 </style>
 </head>
 <body>
-<main class="wrap">
-<header class="brand"><div class="mark">R</div><div><strong>RAMNTIFY</strong><small>DIRECT iOS INSTALL</small></div></header>
-<section class="panel">
-<div class="eyebrow">ACCESS REQUIRED</div>
-<h1>Enter the vault.</h1>
-<p class="sub">Use your personal access code to install RAMNTIFY directly on your iPhone.</p>
-<form id="form">
-<div class="field"><input id="code" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ENTER ACCESS CODE" required></div>
-<button id="submit" type="submit">VERIFY ACCESS&nbsp; ↗</button>
-</form>
-<div class="status" id="status" role="status">Your access code is verified securely by the RAMNTIFY server.</div>
-<a class="download" id="download" href="#" target="_blank" rel="noopener">INSTALL RAMNTIFY ↗</a>
-<div class="foot"><span><i class="dot"></i>SECURE GATE</span><span>RAMNTIFY / 2026</span></div>
-</section>
-</main>
+<div id="gate">
+ <section class="gatebox">
+  <div class="brand"><div class="logo">R</div>RAMNTIFY</div>
+  <div class="eyebrow" style="margin-top:25px">PRIVATE ACCESS</div>
+  <h1>Welcome to RAMNTIFY.</h1>
+  <p>Enter your access code to open the web edition. Your code is checked by the RAMNTIFY server.</p>
+  <form id="gateForm"><input id="gateCode" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ACCESS CODE" required><button id="gateSubmit">UNLOCK RAMNTIFY ↗</button></form>
+  <div class="gate-status" id="gateStatus">Secure access verification</div>
+ </section>
+</div>
+<div class="shell" id="app" aria-hidden="true">
+ <header class="top"><div class="brand"><div class="logo">R</div>RAMNTIFY</div><div class="pill">WEB EDITION</div></header>
+ <main>
+  <section class="page active" id="home">
+   <div class="welcome"><div class="eyebrow">YOUR MUSIC SPACE</div><h1>Music, on<br>your terms.</h1><p>A lightweight RAMNTIFY experience built for iPhone.</p></div>
+   <div class="section-head"><h2>Quick access</h2><span>YOUR SPACE</span></div>
+   <div class="grid">
+    <button class="tile" data-go="search"><div class="glyph">⌕</div><strong>Discover music</strong><small>Find tracks on Spotify</small></button>
+    <button class="tile" data-go="player"><div class="glyph">♫</div><strong>Open player</strong><small>Play a Spotify link</small></button>
+    <button class="tile" data-go="library"><div class="glyph">▤</div><strong>Your library</strong><small>Saved links on this device</small></button>
+    <button class="tile" data-go="settings"><div class="glyph">⚙</div><strong>Preferences</strong><small>App and install settings</small></button>
+   </div>
+   <div class="section-head"><h2>Start listening</h2><span>SPOTIFY EMBED</span></div>
+   <div class="empty">Paste a Spotify track, album or playlist link in the Player tab to load its official embedded player.</div>
+  </section>
+  <section class="page" id="search">
+   <div class="welcome"><div class="eyebrow">DISCOVER</div><h1>Find your<br>next track.</h1><p>Search opens Spotify's official catalogue in a new tab.</p></div>
+   <form class="searchbox" id="searchForm"><input id="searchQuery" placeholder="Artists, songs, albums…" autocomplete="off" required><button class="action">SEARCH ↗</button></form>
+   <div class="settings-card"><strong>How it works</strong><p>RAMNTIFY does not host or download music. Search results and playback are provided by Spotify.</p></div>
+  </section>
+  <section class="page" id="player">
+   <div class="welcome"><div class="eyebrow">LISTEN NOW</div><h1>Your player.</h1><p>Load an official Spotify embed from a track, album or playlist URL.</p></div>
+   <form class="urlbox" id="loadForm"><input id="spotifyUrl" placeholder="Paste Spotify link…" inputmode="url" autocomplete="url" required><button class="action">LOAD</button></form>
+   <div class="notice">Example: open.spotify.com/track/… or open.spotify.com/playlist/…</div>
+   <div class="embed-wrap" id="embed"><div class="empty">Your embedded player will appear here.</div></div>
+   <button id="saveCurrent" class="action" style="margin-top:13px;padding:13px 16px" disabled>SAVE TO LIBRARY</button>
+  </section>
+  <section class="page" id="library">
+   <div class="welcome"><div class="eyebrow">COLLECTION</div><h1>Your library.</h1><p>Saved Spotify links are stored locally on this device.</p></div>
+   <div class="list" id="savedList"><div class="empty">Nothing saved yet. Load a Spotify link and tap Save to Library.</div></div>
+  </section>
+  <section class="page" id="settings">
+   <div class="welcome"><div class="eyebrow">CUSTOMIZE</div><h1>Preferences.</h1><p>RAMNTIFY web edition settings.</p></div>
+   <div class="settings-card"><strong>Install on iPhone</strong><p>In Safari, tap Share → Add to Home Screen. The icon opens RAMNTIFY in an app-like window.</p></div>
+   <div class="settings-card"><strong>Offline support</strong><p>The app shell can reopen offline after its first successful load. Spotify search and playback still require internet.</p></div>
+   <div class="settings-card"><strong>About this edition</strong><p>This is a web companion, not the original native IPA. Native-only tweaks, system integrations and unrestricted background playback are not available in Safari.</p></div>
+   <button id="lockApp" class="action" style="margin-top:14px;padding:14px 17px">LOCK RAMNTIFY</button>
+  </section>
+ </main>
+</div>
+<nav class="nav" id="nav" aria-label="Main navigation"><div class="navinner">
+ <button class="active" data-page="home"><span>⌂</span>HOME</button><button data-page="search"><span>⌕</span>SEARCH</button><button data-page="player"><span>♫</span>PLAYER</button><button data-page="library"><span>▤</span>LIBRARY</button>
+</div></nav>
 <script>
 const API_BASE="https://ramn-ipa-api.onrender.com";
-const form=document.getElementById("form"),input=document.getElementById("code"),statusEl=document.getElementById("status"),btn=document.getElementById("submit"),download=document.getElementById("download");
-form.addEventListener("submit",async e=>{
- e.preventDefault();download.style.display="none";statusEl.className="status";statusEl.textContent="Verifying access code…";btn.disabled=true;
- try{
-  const r=await fetch(API_BASE+"/verify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code:input.value.trim().toUpperCase()})});
-  const d=await r.json();
-  if(!r.ok||!d.ok){statusEl.className="status bad";statusEl.textContent=d.message||"Invalid access code.";return;}
-  if(!d.downloadReady||!d.downloadUrl){statusEl.className="status good";statusEl.textContent="Code accepted. The IPA download is being configured.";return;}
-  statusEl.className="status good";statusEl.textContent="Access granted. Tap below to install RAMNTIFY.";download.href="itms-services://?action=download-manifest&url=https%3A%2F%2Fhoodblaqo.github.io%2Framn-ipa%2Fmanifest.plist";download.target="_self";download.textContent="INSTALL RAMNTIFY ↗";download.style.display="block";
- }catch(_){statusEl.className="status bad";statusEl.textContent="Server unavailable. Please try again shortly.";}
- finally{btn.disabled=false;}
-});
+const gate=document.getElementById("gate"),app=document.getElementById("app"),gateForm=document.getElementById("gateForm"),gateStatus=document.getElementById("gateStatus"),gateSubmit=document.getElementById("gateSubmit");
+function unlock(){gate.classList.add("hidden");app.setAttribute("aria-hidden","false");document.getElementById("nav").style.display="flex";renderLibrary()}
+function lock(){sessionStorage.removeItem("ramntify_access");gate.classList.remove("hidden");app.setAttribute("aria-hidden","true");document.getElementById("nav").style.display="none"}
+document.getElementById("nav").style.display="none";
+if(sessionStorage.getItem("ramntify_access")==="yes")unlock();
+gateForm.addEventListener("submit",async e=>{e.preventDefault();gateStatus.className="gate-status";gateStatus.textContent="Checking code…";gateSubmit.disabled=true;try{const r=await fetch(API_BASE+"/verify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code:document.getElementById("gateCode").value.trim().toUpperCase()})});const d=await r.json();if(!r.ok||!d.ok){gateStatus.className="gate-status bad";gateStatus.textContent=d.message||"Invalid access code.";return}sessionStorage.setItem("ramntify_access","yes");unlock()}catch(_){gateStatus.className="gate-status bad";gateStatus.textContent="Could not reach the access server. Try again."}finally{gateSubmit.disabled=false}});
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.go)));
+document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();const q=document.getElementById("searchQuery").value.trim();if(q)window.open("https://open.spotify.com/search/"+encodeURIComponent(q),"_blank","noopener")});
+let currentUrl="";
+function spotifyEmbedUrl(raw){try{const u=new URL(raw);if(!["open.spotify.com","www.open.spotify.com"].includes(u.hostname))return null;const m=u.pathname.match(/^\/(track|album|playlist|episode|show)\/([A-Za-z0-9]+)$/);if(!m)return null;return "https://open.spotify.com/embed/"+m[1]+"/"+m[2]+"?utm_source=generator&theme=0"}catch(_){return null}}
+document.getElementById("loadForm").addEventListener("submit",e=>{e.preventDefault();const raw=document.getElementById("spotifyUrl").value.trim();const url=spotifyEmbedUrl(raw);const box=document.getElementById("embed");if(!url){box.innerHTML='<div class="empty">That does not look like a supported Spotify track, album, playlist, episode or show link.</div>';return}currentUrl=raw;box.innerHTML='<iframe title="Spotify player" src="'+url+'" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';document.getElementById("saveCurrent").disabled=false});
+function getSaved(){try{return JSON.parse(localStorage.getItem("ramntify_saved")||"[]")}catch(_){return []}}
+function renderLibrary(){const list=document.getElementById("savedList"),items=getSaved();if(!items.length){list.innerHTML='<div class="empty">Nothing saved yet. Load a Spotify link and tap Save to Library.</div>';return}list.innerHTML=items.map((x,i)=>'<div class="rowitem"><div class="cover">♫</div><div><strong>'+escapeHtml(x.label)+'</strong><small>Spotify link saved on this device</small></div><button data-open="'+i+'">OPEN</button></div>').join("");list.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{document.getElementById("spotifyUrl").value=items[Number(b.dataset.open)].url;showPage("player");document.getElementById("loadForm").requestSubmit()}))}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.getElementById("saveCurrent").addEventListener("click",()=>{if(!currentUrl)return;const items=getSaved();if(!items.some(x=>x.url===currentUrl)){items.unshift({url:currentUrl,label:currentUrl.split("/").filter(Boolean).slice(-2).join(" / ")});localStorage.setItem("ramntify_saved",JSON.stringify(items))}renderLibrary();document.getElementById("saveCurrent").textContent="SAVED ✓"});
+document.getElementById("lockApp").addEventListener("click",lock);
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 </script>
 </body>
 </html>

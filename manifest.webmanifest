@@ -1,0 +1,11 @@
+{
+  "name": "RAMNTIFY",
+  "short_name": "RAMNTIFY",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#09090d",
+  "theme_color": "#09090d",
+  "description": "RAMNTIFY web music companion",
+  "icons": [{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
