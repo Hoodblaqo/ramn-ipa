@@ -6,7 +6,11 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["https://hoodblaqo.github.io"]}})
 
 def valid_codes():
-    return {item.strip().upper() for item in os.getenv("ACCESS_CODES", "").split(",") if item.strip()}
+    codes = {item.strip().upper() for item in os.getenv("ACCESS_CODES", "").split(",") if item.strip()}
+    test_code = os.getenv("TEST_CODE", "").strip().upper()
+    if test_code:
+        codes.add(test_code)
+    return codes
 
 @app.get("/health")
 def health():
